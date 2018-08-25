@@ -2,6 +2,8 @@ package com.alextern.shortcutexecutors;
 
 import android.content.Intent;
 
+import com.alextern.shortcuthelper.ExecutorServiceParams;
+
 import java.net.URISyntaxException;
 
 abstract class StateGeneral implements ExecutorServiceParams {

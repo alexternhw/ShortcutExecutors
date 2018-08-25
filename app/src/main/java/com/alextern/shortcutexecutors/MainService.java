@@ -18,6 +18,8 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.provider.Settings;
 
+import com.alextern.shortcuthelper.ExecutorServiceParams;
+
 import java.util.HashSet;
 
 public class MainService extends Service implements ExecutorServiceParams {

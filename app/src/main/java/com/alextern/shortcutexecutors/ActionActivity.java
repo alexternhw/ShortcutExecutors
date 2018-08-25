@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-public class ActionActivity extends Activity implements ExecutorServiceParams{
+import com.alextern.shortcuthelper.ExecutorServiceParams;
+
+public class ActionActivity extends Activity implements ExecutorServiceParams {
     static final int kStateConfirmation = 1;
     static final int kStatePermissionDispatch = 2;
     static final int kStatePermissionAsk = 3;

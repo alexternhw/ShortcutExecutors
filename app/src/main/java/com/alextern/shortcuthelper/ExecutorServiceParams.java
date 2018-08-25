@@ -1,4 +1,4 @@
-package com.alextern.shortcutexecutors;
+package com.alextern.shortcuthelper;
 
 public interface ExecutorServiceParams {
     // Version 1.0
@@ -34,6 +34,11 @@ public interface ExecutorServiceParams {
 
     // Notification parameters
     String kNotificationParam = "ex_not";   // intent with notification parameters in uri string form.
+    String kNotificationParamType = "type"; // type of the notification : int, 0 - toast, 1 - dialog, 2 - status bar notification
+    int kNotificationTypeToast = 0;
+    int kNotificationTypeDialog = 1;
+    int kNotificationTypeStatusNoti = 2;
+    String kNotificationParamMessage = "m"; // Message : String
 
     // Action parameters
     String kActionParam = "ex_act";         // intent with action parameters in uri string form : String
@@ -67,4 +72,6 @@ public interface ExecutorServiceParams {
     int kActionCodeSetWifi = 1000;
     /** Work with bluetooth, kActionParamInt sub code: 1 - disable, 2 - simple enable, 3 - enable via dialog, 4 - enable with discoverable dialog, 5 - toggle  */
     int kActionCodeSetBluetooth = 1001;
+    /** Special action for handle mode lists */
+    int kActionCodeHandleMode = 2000;
 }
