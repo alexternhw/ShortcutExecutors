@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.alextern.shortcutexecutors">
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+    <permission android:name="com.alextern.shortcutservices" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+        <service
+            android:name=".MainService">
+            <intent-filter>
+                <action android:name="192f2516-84ae-4928-950a-4b0b5a5e7439" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".ActionActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppBaseTheme">
+            <intent-filter>
+                <action android:name="shortcuthelper.intent.action.EXECUTE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="shortcut" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="shortcuthelper.intent.action.REQUEST_PERMISSIONS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

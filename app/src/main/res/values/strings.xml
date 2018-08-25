@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ShortcutExecutors</string>
+    <string name="permission.dialog.title">Permissions request</string>
+    <string name="permission.dialog.message">This functionality requires following permissions:\n</string>
+    <string name="permission.dialog.button">Request Permissions</string>
+    <string name="permission.call">Originate Call</string>
+    <string name="permission.volume">Change Volume</string>
+    <string name="permission.settings">Change Settings</string>
+    <string name="error.dialog.title">Execution Failed</string>
+    <string name="error.dialog.button">Send info</string>
+    <string name="error.msg.incorrectParameters">Incorrect parameters</string>
+    <string name="error.msg.exception">Exception during execution</string>
+</resources>
