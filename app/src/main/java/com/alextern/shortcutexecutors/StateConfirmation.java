@@ -11,7 +11,13 @@ class StateConfirmation extends StateGeneral implements  DialogInterface.OnClick
 
     @Override
     void execute() {
-        if (params == null) {
+        ModelSwitchMode model = getModelSwitchMode();
+
+        if (model != null && model.errorMessage != null) {
+            // check on errors while handle model switch in confirmation state, other states avoid this
+            Intent params = StateError.generateParams(model.errorMessage, model.errorException);
+            activity.switchToState(ActionActivity.kStateError, params);
+        } else if (params == null) {
             // No confirmation - get action and permission and go to permission dialog
             goToPermissionState();
         } else {
@@ -27,10 +33,10 @@ class StateConfirmation extends StateGeneral implements  DialogInterface.OnClick
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         String label = params.getStringExtra(kConfirmationParamTitle);
         if (label != null)
-            builder.setTitle(label);
+            builder.setTitle(fillTemplates(label));
         label = params.getStringExtra(kConfirmationParamMessage);
         if (label != null)
-            builder.setMessage(label);
+            builder.setMessage(fillTemplates(label));
         label = params.getStringExtra(kConfirmationParamPositiveButton);
         if (label == null)
             label = activity.getString(android.R.string.ok);
@@ -64,6 +70,19 @@ class StateConfirmation extends StateGeneral implements  DialogInterface.OnClick
             return kChangeVolumePermission;
         else if (actionCode < 30)
             return kWriteSettingPermission;
+        else if (actionCode == kActionCodeHandleMode) {
+            // we should obtain permissions for all actions in the current mode
+            ModelSwitchMode model = getModelSwitchMode();
+            if (model != null && model.errorMessage == null) {
+                ModelSwitchMode.Mode curMode = model.getCurrentMode();
+                int resultPermissions = 0;
+                for (Intent action : curMode.actions) {
+                    int code = action.getIntExtra(kActionParamCode, 0);
+                    resultPermissions |= getPermissionsForAction(code);
+                }
+                return resultPermissions;
+            }
+        }
         return 0;
     }
 

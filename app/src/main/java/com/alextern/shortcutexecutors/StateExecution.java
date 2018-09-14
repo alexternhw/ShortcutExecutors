@@ -55,6 +55,8 @@ class StateExecution extends StateGeneral {
                 return setWifiState(params);
             case kActionCodeSetBluetooth:
                 return setBluetooth(params);
+            case kActionCodeHandleMode:
+                return handleModeSwitch();
         }
         return false;
     }
@@ -247,6 +249,21 @@ class StateExecution extends StateGeneral {
             }
         } else {
             errorMessage = "Could not obtain bluetooth adapter";
+        }
+        return false;
+    }
+
+    private boolean handleModeSwitch() {
+        ModelSwitchMode model = getModelSwitchMode();
+        if (model != null && model.errorMessage == null) {
+            ModelSwitchMode.Mode currentMode = model.getCurrentMode();
+            for (Intent action : currentMode.actions) {
+                if (!invokeAction(action))
+                    return false;
+            }
+
+            model.goToNextMode(getActionPreferences());
+            return true;
         }
         return false;
     }

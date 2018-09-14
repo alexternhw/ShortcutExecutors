@@ -54,6 +54,7 @@ public interface ExecutorServiceParams {
     String kActionParamInt2 = "i2";
     String kActionParamInt3 = "i3";
     String kActionParamInt4 = "i4";
+    String kActionParamString = "s";          // string sub-code for the operation.
 
     /** Change stream volume, kActionParamInt - sub code: 1 - adjust lower, 2 - adjust same, 3 - adjust higher,
          4 set particular volume (kActionParamInt3 for volume level in percent).
@@ -72,6 +73,15 @@ public interface ExecutorServiceParams {
     int kActionCodeSetWifi = 1000;
     /** Work with bluetooth, kActionParamInt sub code: 1 - disable, 2 - simple enable, 3 - enable via dialog, 4 - enable with discoverable dialog, 5 - toggle  */
     int kActionCodeSetBluetooth = 1001;
-    /** Special action for handle mode lists */
+
+    /** Special action for handle mode lists
+     *  kActionParamInt is used for provide count of the modes, then we can use kActionParamListElement + <element index> for obtain
+     *  intent with particular mode parameters in uri string form.
+     *  Each mode parameters contains name in kActionParamString and count of actions in kActionParamInt, we can use
+     *  kActionParamListElement + <element index> for obtain intent with particular action parameters */
     int kActionCodeHandleMode = 2000;
+    String kActionParamListElement = "l";     // Used as partial name for elements of the lists
+
+    String kCurModeKey = "{mode}";
+    String kPrevModeKey = "{prev_mode}";
 }

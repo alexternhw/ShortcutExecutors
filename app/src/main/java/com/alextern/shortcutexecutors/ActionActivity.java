@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 
 import com.alextern.shortcuthelper.ExecutorServiceParams;
 
+import java.util.HashMap;
+
 public class ActionActivity extends Activity implements ExecutorServiceParams {
     static final int kStateConfirmation = 1;
     static final int kStatePermissionDispatch = 2;
@@ -80,11 +82,23 @@ public class ActionActivity extends Activity implements ExecutorServiceParams {
     static final int kModeRequestParameters = 2;
     int curMode;
 
+    /** States can use two following cache functions for store some local objects and transfer theirs between the states.
+     * The object are NOT automatically recreated after activity recreation, so you should restore it manually.
+     */
+    void keepObjectToCache(String name, Object object) {
+        cachedObjects.put(name, object);
+    }
+
+    Object getObjectFromCache(String name) {
+        return cachedObjects.get(name);
+    }
+
     //endregion
 
     private static final String kStateKey = "stateType";
     private static final String kStateParamsKey = "stateParams";
 
+    private HashMap<String, Object> cachedObjects = new HashMap<>();
     private StateGeneral curState;
     private int curStateType;
 

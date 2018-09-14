@@ -10,4 +10,7 @@
     <string name="error.dialog.button">Send info</string>
     <string name="error.msg.incorrectParameters">Incorrect parameters</string>
     <string name="error.msg.exception">Exception during execution</string>
+    <string name="channel.name">Action Notifications</string>
+    <string name="channel.description">For notify you about completion of the actions</string>
+    <string name="notification.title">Action Executed</string>
 </resources>
