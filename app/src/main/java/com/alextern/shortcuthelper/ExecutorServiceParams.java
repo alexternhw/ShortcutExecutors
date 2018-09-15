@@ -63,8 +63,11 @@ public interface ExecutorServiceParams {
     int kActionCodeChangeVolume = 11;
 
     /** Change brightness, kActionParamInt sub code: 1 - increase 10% up, 2 decrease 10% down, 3 - set to min, 4 - set to max,
-     *  5 - set to some value (kActionInt2 from 0 to 100 in percent), 6 - enable automatic mode, 7 - disable automatic mode, 8 - toggle automatic mode. */
+     *  5 - set to some value (kActionInt2 from 0 to 100 in percent) */
     int kActionCodeChangeBrightness = 20;
+
+    /** Change adaptive mode for brightness, kActionParamInt sub code: 1 - enable, 2 - disable, 3 - toggle. */
+    int kActionCodeChangeAdaptiveBrightness = 22;
 
     /** Change Auto orientation, kActionParamInt sub code: 1 - enable, 2 - disable, 3 - toggle. */
     int kActionCodeSetAutoOrientation = 21;

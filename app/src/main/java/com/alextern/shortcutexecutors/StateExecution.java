@@ -49,6 +49,8 @@ class StateExecution extends StateGeneral {
                 return changeVolume(params);
             case kActionCodeChangeBrightness:
                 return changeBrightness(params);
+            case kActionCodeChangeAdaptiveBrightness:
+                return changeAdaptiveBrightness(params);
             case kActionCodeSetAutoOrientation:
                 return changeAutoOrientation(params);
             case kActionCodeSetWifi:
@@ -131,7 +133,7 @@ class StateExecution extends StateGeneral {
         int op = params.getIntExtra(kActionParamInt, 0);
         int percents = params.getIntExtra(kActionParamInt2,0);
         // validate parameters
-        if (op > 0 && op < 9 && percents >= 0 && percents <= 100) {
+        if (op > 0 && op < 6 && percents >= 0 && percents <= 100) {
             ContentResolver resolver = activity.getContentResolver();
             try {
                 int curBrightnessLevel = Settings.System.getInt(resolver, Settings.System.SCREEN_BRIGHTNESS);
@@ -155,13 +157,31 @@ class StateExecution extends StateGeneral {
                         requiredLevel = 255 * percents / 100;
                         Settings.System.putInt(resolver, Settings.System.SCREEN_BRIGHTNESS, requiredLevel);
                         break;
-                    case 6:
+                }
+                return true;
+            } catch (Settings.SettingNotFoundException e) {
+                setError(R.string.error_msg_exception, e);
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean changeAdaptiveBrightness(Intent params) {
+        int op = params.getIntExtra(kActionParamInt, 0);
+        // validate parameters
+        if (op > 0 && op < 4) {
+            ContentResolver resolver = activity.getContentResolver();
+            try {
+                switch(op) {
+                    case 1:
                         Settings.System.putInt(resolver, Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                         break;
-                    case 7:
+                    case 2:
                         Settings.System.putInt(resolver, Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
                         break;
-                    case 8: {
+                    case 3: {
                         int curMode = Settings.System.getInt(resolver, Settings.System.SCREEN_BRIGHTNESS_MODE);
                         Settings.System.putInt(resolver, Settings.System.SCREEN_BRIGHTNESS_MODE,
                                 curMode == Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL ? Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC : Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
