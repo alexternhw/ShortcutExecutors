@@ -7,6 +7,10 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.UUID;
@@ -27,7 +31,7 @@ class StateNotification extends StateGeneral implements DialogInterface.OnCancel
 
             switch (type) {
                 case kNotificationTypeToast:
-                    Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
+                    showToastMessage(message);
                     activity.finish();
                     break;
                 case kNotificationTypeDialog:
@@ -35,12 +39,27 @@ class StateNotification extends StateGeneral implements DialogInterface.OnCancel
                     break;
                 case kNotificationTypeStatusNoti:
                     createNotification(message);
+                    activity.finish();
                     break;
             }
         }
     }
 
     private static final String kChannelId = "action";
+
+    private void showToastMessage(String message) {
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View layout = inflater.inflate(R.layout.notify_toast, null);
+
+        TextView text = layout.findViewById(R.id.text);
+        text.setText(message);
+
+        Toast toast = new Toast(activity);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
+    }
 
     private void createNotification(String message) {
         createNotificationChannel();
@@ -78,6 +97,8 @@ class StateNotification extends StateGeneral implements DialogInterface.OnCancel
 
     private void showDialog(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setIcon(R.mipmap.ic_notification);
+        builder.setTitle(R.string.notification_title);
         builder.setMessage(message);
         String label = activity.getString(android.R.string.ok);
         builder.setPositiveButton(label, this);

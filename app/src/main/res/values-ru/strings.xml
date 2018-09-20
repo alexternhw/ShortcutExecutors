@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">ShortcutExecutors</string>
+    <string name="permission.dialog.title">Запрос разрешения</string>
+    <string name="permission.dialog.message">Эта функциональность требует следующих разрешений:\n</string>
+    <string name="permission.dialog.button">Запрос</string>
+    <string name="permission.call">Инициация звонка</string>
+    <string name="permission.volume">Изменение громкости</string>
+    <string name="permission.settings">Изменение Настроек</string>
+    <string name="error.dialog.title">Выполнение не удалось</string>
+    <string name="error.dialog.button">Отправить</string>
+    <string name="error.msg.incorrectParameters">Неправильные параметры</string>
+    <string name="error.msg.exception">Исключение при выполнении</string>
+    <string name="channel.name">Уведомление о действии</string>
+    <string name="channel.description">Для уведомления вас о выполнении действий.</string>
+    <string name="notification.title">Действие выполнено</string>
+</resources>

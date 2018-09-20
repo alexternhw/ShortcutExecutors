@@ -133,7 +133,7 @@ class StateExecution extends StateGeneral {
         int op = params.getIntExtra(kActionParamInt, 0);
         int percents = params.getIntExtra(kActionParamInt2,0);
         // validate parameters
-        if (op > 0 && op < 6 && percents >= 0 && percents <= 100) {
+        if (op > 0 && op < 4 && percents >= 0 && percents <= 100) {
             ContentResolver resolver = activity.getContentResolver();
             try {
                 int curBrightnessLevel = Settings.System.getInt(resolver, Settings.System.SCREEN_BRIGHTNESS);
@@ -148,12 +148,6 @@ class StateExecution extends StateGeneral {
                         Settings.System.putInt(resolver, Settings.System.SCREEN_BRIGHTNESS, requiredLevel);
                         break;
                     case 3:
-                        Settings.System.putInt(resolver, Settings.System.SCREEN_BRIGHTNESS, 0);
-                        break;
-                    case 4:
-                        Settings.System.putInt(resolver, Settings.System.SCREEN_BRIGHTNESS, 255);
-                        break;
-                    case 5:
                         requiredLevel = 255 * percents / 100;
                         Settings.System.putInt(resolver, Settings.System.SCREEN_BRIGHTNESS, requiredLevel);
                         break;

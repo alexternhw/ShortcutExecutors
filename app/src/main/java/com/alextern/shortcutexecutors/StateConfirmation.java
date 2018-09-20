@@ -31,6 +31,7 @@ class StateConfirmation extends StateGeneral implements  DialogInterface.OnClick
 
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setIcon(R.mipmap.ic_notification);
         String label = params.getStringExtra(kConfirmationParamTitle);
         if (label != null)
             builder.setTitle(fillTemplates(label));
