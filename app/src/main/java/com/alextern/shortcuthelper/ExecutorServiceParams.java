@@ -76,6 +76,8 @@ public interface ExecutorServiceParams {
     int kActionCodeSetWifi = 1000;
     /** Work with bluetooth, kActionParamInt sub code: 1 - disable, 2 - simple enable, 3 - enable via dialog, 4 - enable with discoverable dialog, 5 - toggle  */
     int kActionCodeSetBluetooth = 1001;
+    /** Work with master sync option, kActionParamInt sub code: 1 - enable, 2 - disable, 3 - toggle  */
+    int kActionCodeSetMasterSync = 1002;
 
     /** Special action for handle mode lists
      *  kActionParamInt is used for provide count of the modes, then we can use kActionParamListElement + <element index> for obtain

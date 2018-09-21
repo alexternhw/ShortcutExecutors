@@ -96,6 +96,7 @@ public class MainService extends Service implements ExecutorServiceParams {
             if (adapter != null) {
                 result.add(kActionCodeSetBluetooth);
             }
+            result.add(kActionCodeSetMasterSync);
 
             Message reply = Message.obtain();
             reply.what = msg.what;

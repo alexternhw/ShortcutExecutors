@@ -57,6 +57,8 @@ class StateExecution extends StateGeneral {
                 return setWifiState(params);
             case kActionCodeSetBluetooth:
                 return setBluetooth(params);
+            case kActionCodeSetMasterSync:
+                return setMasterSync(params);
             case kActionCodeHandleMode:
                 return handleModeSwitch();
         }
@@ -264,6 +266,26 @@ class StateExecution extends StateGeneral {
         } else {
             errorMessage = "Could not obtain bluetooth adapter";
         }
+        return false;
+    }
+
+    private boolean setMasterSync(Intent params) {
+        int op = params.getIntExtra(kActionParamInt, 0);
+        if (op > 0 && op < 4) {
+            switch (op) {
+                case 1:
+                    ContentResolver.setMasterSyncAutomatically(true);
+                    break;
+                case 2:
+                    ContentResolver.setMasterSyncAutomatically(false);
+                    break;
+                case 3:
+                    ContentResolver.setMasterSyncAutomatically(!ContentResolver.getMasterSyncAutomatically());
+                    break;
+            }
+            return true;
+        }
+
         return false;
     }
 
