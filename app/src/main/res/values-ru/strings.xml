@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ShortcutExecutors</string>
+    <string name="app_name">Исполнитель команд для ярлыков</string>
     <string name="permission.dialog.title">Запрос разрешения</string>
     <string name="permission.dialog.message">Эта функциональность требует следующих разрешений:\n</string>
     <string name="permission.dialog.button">Запрос</string>
