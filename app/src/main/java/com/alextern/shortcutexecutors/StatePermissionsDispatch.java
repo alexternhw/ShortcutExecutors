@@ -45,7 +45,10 @@ class StatePermissionsDispatch extends StateGeneral implements DialogInterface.O
             boolean canExecute = true;
             manifestPermission = null;
             if ((requiredPermissions & kCallPermission) == kCallPermission)
-                checkAndAdd(Manifest.permission.CALL_PHONE, R.string.permission_call);
+                if (!checkAndAdd(Manifest.permission.CALL_PHONE, R.string.permission_call)) {
+                    canExecute = false;
+                    showGoToSettingsDialog();
+                }
             if (manifestPermission != null) {
                 canExecute = false;
                 if (askForPermission) {
@@ -70,9 +73,9 @@ class StatePermissionsDispatch extends StateGeneral implements DialogInterface.O
                     canExecute = false;
                     permissionNames.append(activity.getString(R.string.permission_settings));
                     if (askForPermission) {
-                        showDialog(kSettingsFlow);
+                        showDialog(kWriteSettingsFlow);
                     } else {
-                        goToAskSettingsPermissions();
+                        goToAskWriteSettingsPermissions();
                     }
                 }
             }
@@ -91,21 +94,30 @@ class StatePermissionsDispatch extends StateGeneral implements DialogInterface.O
 
     private static final int kManifestFlow = 1;
     private static final int kVolumeFlow = 2;
-    private static final int kSettingsFlow = 3;
+    private static final int kWriteSettingsFlow = 3;
+    private static final int kAppSettingsFlow = 4;
     private StringBuilder permissionNames;
     private ArrayList<String> manifestPermission;
     private int flow;
     private boolean checked;
 
-    private void checkAndAdd(String permission, int resId) {
+    private boolean checkAndAdd(String permission, int resId) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && activity.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
-            if (manifestPermission == null)
-                manifestPermission = new ArrayList<>();
-            manifestPermission.add(permission);
-            if (permissionNames.length() > 0)
-                permissionNames.append(',');
-            permissionNames.append(activity.getString(resId));
+            if (activity.shouldShowRequestPermissionRationale(permission)) {
+                if (manifestPermission == null)
+                    manifestPermission = new ArrayList<>();
+                manifestPermission.add(permission);
+                if (permissionNames.length() > 0)
+                    permissionNames.append(',');
+                permissionNames.append(activity.getString(resId));
+            } else {
+                if (permissionNames.length() > 0)
+                    permissionNames.append(',');
+                permissionNames.append(activity.getString(resId));
+                return false;
+            }
         }
+        return true;
     }
 
     private void showDialog(int continueFlow) {
@@ -126,6 +138,24 @@ class StatePermissionsDispatch extends StateGeneral implements DialogInterface.O
         builder.create().show();
     }
 
+    private void showGoToSettingsDialog() {
+        flow = StatePermissionsDispatch.kAppSettingsFlow;
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(R.string.permission_dialog_title);
+
+        SpannableStringBuilder spBuilder = new SpannableStringBuilder(activity.getText(R.string.permission_dialog_disabledMessage));
+        SpannableString add = new SpannableString(permissionNames);
+        add.setSpan(new StyleSpan(Typeface.BOLD), 0, add.length(), 0);
+        spBuilder.append(add);
+        builder.setMessage(spBuilder);
+
+        builder.setNegativeButton(android.R.string.cancel, this);
+        builder.setPositiveButton(R.string.permission_dialog_buttonSettings, this);
+        builder.setOnCancelListener(this);
+
+        builder.create().show();
+    }
+
     private void goToAskManifestPermissions() {
         Intent params = new Intent();
         params.putExtra(StatePermissionAsk.kPermissionsListParam, manifestPermission);
@@ -139,10 +169,16 @@ class StatePermissionsDispatch extends StateGeneral implements DialogInterface.O
         }
     }
 
-    private void goToAskSettingsPermissions() {
+    private void goToAskWriteSettingsPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             activity.startActivity(new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS).setData(Uri.parse("package:" + activity.getPackageName())).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
+    }
+
+    private void goToAskAppSettingsPermissions() {
+        Intent i = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        i.setData(Uri.parse("package:" + activity.getPackageName()));
+        activity.startActivity(i);
     }
 
     @Override
@@ -157,8 +193,11 @@ class StatePermissionsDispatch extends StateGeneral implements DialogInterface.O
                 case kVolumeFlow:
                     goToAskVolumePermissions();
                     break;
-                case kSettingsFlow:
-                    goToAskSettingsPermissions();
+                case kWriteSettingsFlow:
+                    goToAskWriteSettingsPermissions();
+                    break;
+                case kAppSettingsFlow:
+                    goToAskAppSettingsPermissions();
                     break;
             }
         }

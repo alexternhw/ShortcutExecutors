@@ -1,16 +1,18 @@
 <resources>
     <string name="app_name">ShortcutExecutors</string>
-    <string name="permission.dialog.title">Permissions request</string>
-    <string name="permission.dialog.message">This functionality requires following permissions:\n</string>
-    <string name="permission.dialog.button">Request Permissions</string>
-    <string name="permission.call">Originate Call</string>
-    <string name="permission.volume">Change Volume</string>
-    <string name="permission.settings">Change Settings</string>
-    <string name="error.dialog.title">Execution Failed</string>
-    <string name="error.dialog.button">Send info</string>
-    <string name="error.msg.incorrectParameters">Incorrect parameters</string>
-    <string name="error.msg.exception">Exception during execution</string>
-    <string name="channel.name">Action Notifications</string>
-    <string name="channel.description">For notify you about completion of the actions</string>
-    <string name="notification.title">Action Executed</string>
+    <string name="permission_dialog_title">Permissions request</string>
+    <string name="permission_dialog_message">This functionality requires following permissions:\n</string>
+    <string name="permission_dialog_disabledMessage">You checked to not show again the permission dialog, but still want to use the functionality.\n\nNow you can only go to the Settings, find Permissions option and manually grant the following permission:\n</string>
+    <string name="permission_dialog_buttonSettings">Go to Settings</string>
+    <string name="permission_dialog_button">Request Permissions</string>
+    <string name="permission_call">Originate Call</string>
+    <string name="permission_volume">Change Volume</string>
+    <string name="permission_settings">Change Settings</string>
+    <string name="error_dialog_title">Execution Failed</string>
+    <string name="error_dialog_button">Send info</string>
+    <string name="error_msg_incorrectParameters">Incorrect parameters</string>
+    <string name="error_msg_exception">Exception during execution</string>
+    <string name="channel_name">Action Notifications</string>
+    <string name="channel_description">For notify you about completion of the actions</string>
+    <string name="notification_title">Action Executed</string>
 </resources>

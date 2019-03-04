@@ -1,16 +1,20 @@
 <resources>
     <string name="app_name">Исполнитель команд для ярлыков</string>
-    <string name="permission.dialog.title">Запрос разрешения</string>
-    <string name="permission.dialog.message">Эта функциональность требует следующих разрешений:\n</string>
-    <string name="permission.dialog.button">Запрос</string>
-    <string name="permission.call">Инициация звонка</string>
-    <string name="permission.volume">Изменение громкости</string>
-    <string name="permission.settings">Изменение Настроек</string>
-    <string name="error.dialog.title">Выполнение не удалось</string>
-    <string name="error.dialog.button">Отправить</string>
-    <string name="error.msg.incorrectParameters">Неправильные параметры</string>
-    <string name="error.msg.exception">Исключение при выполнении</string>
-    <string name="channel.name">Уведомление о действии</string>
-    <string name="channel.description">Для уведомления вас о выполнении действий.</string>
-    <string name="notification.title">Действие выполнено</string>
+
+    <string name="permission_dialog_title">Запрос разрешения</string>
+    <string name="permission_dialog_message">Эта функциональность требует следующих разрешений:\n</string>
+    <string name="permission_dialog_button">Запрос</string>
+    <string name="permission_dialog_disabledMessage">Вы отметили опции не показывать больше диалога разрешений, однако все еще хотите использовать эту функциональность.\n\nТеперь вы можете только перейти в Настройки, найти опцию Разрешения и вручную предоставить следующие разрешения:\n</string>
+    <string name="permission_dialog_buttonSettings">В Настройки</string>
+
+    <string name="permission_call">Инициация звонка</string>
+    <string name="permission_volume">Изменение громкости</string>
+    <string name="permission_settings">Изменение Настроек</string>
+    <string name="error_dialog_title">Выполнение не удалось</string>
+    <string name="error_dialog_button">Отправить</string>
+    <string name="error_msg_incorrectParameters">Неправильные параметры</string>
+    <string name="error_msg_exception">Исключение при выполнении</string>
+    <string name="channel_name">Уведомление о действии</string>
+    <string name="channel_description">Для уведомления вас о выполнении действий.</string>
+    <string name="notification_title">Действие выполнено</string>
 </resources>
