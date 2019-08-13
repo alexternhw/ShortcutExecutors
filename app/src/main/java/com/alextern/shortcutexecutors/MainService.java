@@ -89,6 +89,7 @@ public class MainService extends Service implements ExecutorServiceParams {
             result.add(kActionCodeChangeBrightness);
             result.add(kActionCodeChangeAdaptiveBrightness);
             result.add(kActionCodeSetAutoOrientation);
+            result.add(kActionCodeStartIntent);
             if(getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI)) {
                 result.add(kActionCodeSetWifi);
             }

@@ -42,6 +42,7 @@ class StateExecution extends StateGeneral {
         int actionCode = params.getIntExtra(kActionParamCode, 0);
         switch (actionCode) {
             case kActionCodeCall:
+            case kActionCodeStartIntent:
                 return forwardIntent(params);
             case kActionCodeSetRinger:
                 return setRingerMode(params);

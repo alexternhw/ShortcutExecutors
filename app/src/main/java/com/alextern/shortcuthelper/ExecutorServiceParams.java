@@ -57,9 +57,9 @@ public interface ExecutorServiceParams {
     String kActionParamString = "s";          // string sub-code for the operation.
 
     /** Change stream volume, kActionParamInt - sub code: 1 - adjust lower, 2 - adjust same, 3 - adjust higher,
-         4 set particular volume (kActionParamInt3 for volume level in percent).
-         Use kActionParamInt2 for required stream type, by default this is equal to 3 - music steam
-         Use kActionParamInt4 for flags like AudioManager.FLAG_SHOW_UI, by default 0*/
+     4 set particular volume (kActionParamInt3 for volume level in percent).
+     Use kActionParamInt2 for required stream type, by default this is equal to 3 - music steam
+     Use kActionParamInt4 for flags like AudioManager.FLAG_SHOW_UI, by default 0*/
     int kActionCodeChangeVolume = 11;
 
     /** Change brightness, kActionParamInt sub code: 1 - increase 10% up, 2 decrease 10% down, 3 - set
@@ -85,6 +85,8 @@ public interface ExecutorServiceParams {
      *  Each mode parameters contains name in kActionParamString and count of actions in kActionParamInt, we can use
      *  kActionParamListElement + <element index> for obtain intent with particular action parameters */
     int kActionCodeHandleMode = 2000;
+    /** Simple start some intent saved in kActionParamForwardIntent, no additional permissions is required.*/
+    int kActionCodeStartIntent = 2001;
     String kActionParamListElement = "l";     // Used as partial name for elements of the lists
 
     String kCurModeKey = "{mode}";
